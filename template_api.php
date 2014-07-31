@@ -23,9 +23,6 @@
 
 	var $mExtraDescription = false;
 
-
-	 //=============================Article���е�===================================//
-	
 	/**
 	 * The context this Article is executed in
 	 * @var IContextSource $mContext
@@ -69,7 +66,6 @@
 		return $t == null ? null : new self( $t );
 		
 	}
-
 
 	/**
 	 * @param $file File:
@@ -244,6 +240,7 @@
 		$params['height'] = 600;
 		$thumbnail = $this->displayImg->transform( $params );
 		return $thumbnail;*/
+		
 		global $wgImageLimits, $wgEnableUploads, $wgSend404Code;
 
 		$this->loadFile();
@@ -346,7 +343,9 @@
 						}
 					}
 					$otherSizes = array_unique( $otherSizes );
+					
 					$msgsmall = '';
+					
 					$sizeLinkBigImagePreview = $this->makeSizeLink( $params, $width, $height );
 					if ( $sizeLinkBigImagePreview ) {
 						$msgsmall .= wfMessage( 'show-big-image-preview' )->
@@ -376,6 +375,7 @@
 				$params['height'] = $height;
 
 				$thumbnail = $this->displayImg->transform( $params );
+				Linker::processResponsiveImages( $this->displayImg, $thumbnail, $params );
 
 			}
 
@@ -402,6 +402,7 @@
 			? $wgImageLimits[$option]
 			: array( 800, 600 ); // if nothing is set, fallback to a hardcoded default
 	}
+	
 	/**
 	 * Creates an thumbnail of specified size and returns an HTML link to it
 	 * @param array $params Scaler parameters
@@ -483,8 +484,29 @@
 		$deleter->execute();
 	}
 	
-	public function getThumbImg(){
+	public function getThumbDirectImg(){
 		return $this->thumbnail;
+	}
+	
+	/**
+	 * 伪代码
+	 * 2014.07.31 
+	 * @author davidlau
+	 */
+	public function getThumbImg($s){
+		
+		if(this->$thumbnail){// 这个判断有些bug
+			
+			if($s=='1.5'){
+				return $this->thumbnail->responsiveUrls['1.5'];
+			}else if($s=='2'){
+				return $this->thumbnail->responsiveUrls['2'];
+			}else{	
+				return $this->thumbnail;
+			}	
+		}else{
+			return false;
+		}	
 	}
 
 	/**
