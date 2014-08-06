@@ -41,6 +41,20 @@
      
      
      /**
+      * PageList
+      **/
+     function getPageList($limit){
+         $pageArray;
+         $jsonArrayData = $jsonParser->execute($action,$limit);
+         foreach($jsonData:jsonArrayData){
+            $pageArray[]->setFromJson($jsonData);
+         }
+      
+         return $pageArray;
+     }
+     
+     
+     /**
       * Page
       **/
      function getPage($title){
