@@ -43,8 +43,8 @@
      /**
       * Page
       **/
-     function getPage(){
-         $page = new WikiPage(title);
+     function getPage($title){
+         $page = new WikiPage($title);
          $jsonData = $jsonParser->execute($action,$title);
          $page ->setFromJson($jsonData);
          return $page;
