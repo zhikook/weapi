@@ -44,14 +44,9 @@
       * Page
       **/
      function getPage(){
-         $jsonData = JsonResponse->getResultOfPage($title);
-         
-         $wikipage = new WikiPage(title);
-         $wikipage->setPageId($jsonData[id]);
-         $wikipage->setPageId($jsonData[id]);
-         $wikipage->setPageId($jsonData[id]);
-         $wikipage->setPageId($jsonData[id]);
-         
+         $page = new WikiPage(title);
+         $jsonData = $jsonParser->execute($action,$title);
+         $page ->setFromJson($jsonData);
          return $page;
      }
      
