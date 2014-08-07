@@ -1,4 +1,10 @@
 <?php
+
+require_once __DIR__ . '/JsonMapper.php';
+require_once __DIR__ . '/wiki_cate.php'; 
+require_once __DIR__ . '/wiki_page.php';  
+require_once __DIR__ . '/wiki_user.php'; 
+    
 /*
  * Created on 2014-8-5
  *
@@ -6,51 +12,71 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
  class WikiApi{
-     
-     private static $userArray;
-     
      private $jsonParser ;
+     private $mapper ；
      
-     public function __construct(){
-         
+     public function __construct($user){
+        $mapper = new JsonMapper();
      }
-          
+     
      /**
       * User
-      **/
-     
+      **/  
      function login($user){
+         $action = "login";
+         $login_vars['lgname'] = $user.getUserName();
          
-         return $token; 
+         if($psw){
+             $login_vars['lgpassword'] = $psw;
+         }else{
+             $login_vars['lgtoken'] = $user.getUserToken();
+         }
+         $jsonResult = $jsonParser->execute($action,$login_vars);
+         return $jsonResult; 
      }
      
      function unlogin($user){
-         
-         return true;  
+         $action = "unlogin";
+         $login_vars['lgname'] = $user.getUserName();  
+         $jsonResult= $jsonParser->execute($action,$login_vars)
+         return $jsonResult;  
      }
      
-     function checkToken(){
+     function checkToken($user){
          
-         return true;
      }
      
-     function getUserList(){
+     function getUserList($limit){
+         
+         $users;
+         $jsonData;
+         
+         $action = 'query';
+         
+         if($limit){
+            $jsonData  = $jsonParser->execute($action,$limit);
+         }else{
+            $jsonData = $jsonParser->execute($action);
+         }
+         
+         //map to array object
+         $users=$mapper->mapArray($jsonData,new ArrayObject(),'WikiUser');
          
          return $userArray;
+         
      }
      
+     //======================================================================
      
      /**
       * PageList
       **/
      function getPageList($limit){
-         $pageArray;
-         $jsonArrayData = $jsonParser->execute($action,$limit);
-         foreach($jsonData:jsonArrayData){
-            $pageArray[]->setFromJson($jsonData);
-         }
-      
-         return $pageArray;
+         $pages;
+         $jsonData = $jsonParser->execute($action,$limit);
+         $pages=$mapper->mapArray($jsonData,new ArrayObject(),'WikiPage');
+
+         return $pages;
      }
      
      
@@ -60,24 +86,23 @@
      function getPage($title){
          $page = new WikiPage($title);
          $jsonData = $jsonParser->execute($action,$title);
-         $page ->setFromJson($jsonData);
+         $page = $mapper->map($json, new WikiPage());
          return $page;
-     }
-     
-     function getPageList(){
-         return $pages;
      }
      
      /**
       * Images
       **/
-     function getImageInfo(){
+     function getImageInfo($title){
          //add url...
          
          return $image;
      }
      
      function getImageList(){
+         
+         
+         
          return $imagelist;
      }
      
@@ -88,5 +113,5 @@
          
      }
  	
- }
+}
 ?>

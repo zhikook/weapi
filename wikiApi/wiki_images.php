@@ -76,5 +76,8 @@ class PageImage{
         this->$imageRedirectUrl => $data;
     }
     
+    public function toHtml(){
+        
+    }
 }
 ?>
