@@ -183,30 +183,49 @@ require_once __DIR__ . '/wiki_user.php';
         return $pages;￼
                 
      }
+        
+    //=================================================================================
                 
      /**
       * Images
       **/
-     function setImageInfo($pages,$titles){
+     function setImages($pages,$titles){
          $action = "query";
          $prop = "imageinfo";
          $images;
-         $jsonData = $jsonParser->execute($action,$exchars,$titles,$prop);
+         $jsonData = $jsonParser->execute($action,$titles,$prop);
          if($jsonData){
             $result=$mapper->mapArray($jsonData,new ArrayObject(),'WikiPage');
          }
-                $result->pageid;
-                $pages[]->setImages($result->$images);
+                
+         $result->pageid;
+         $pages[]->setImages($result->$images);
          
          return $pages;
      }
     
+     
+    function setThumbnail($pages){
+        $thumbnail;
+        
+        $images = $pages->getPageImage();
+        
+        $action = "query";
+        $prop = "pageimages";
+        $titles = $pages->getTitle();
                 
+        $jsonData = $jsonParser->execute($action,$titles,$prop);
+        if($jsonData){
+            $thumbnail=$mapper->mapArray($jsonData,new ArrayObject(),'Thumbnail');
+        }
+
+        $image->setThumbnail();  
+    }
      /**
       * Upload File
       */
      function uploadFile($file){
-         
+        return false;
      }
  	
 }
