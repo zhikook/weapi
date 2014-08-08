@@ -38,8 +38,7 @@
          
          return $jsonRepo;
      } 
-     
-     
+        
      function parseVars($reqVars) {
          $reqStr = '';
          foreach($reqVars as $key=>$var) {

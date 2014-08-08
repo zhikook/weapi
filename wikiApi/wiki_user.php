@@ -7,13 +7,13 @@
  */
  
  class WikiUser{
-     $WikiApi
      
      private  $userName;
      private $userId;
      private $userPassword;
      private $userToken;
-    
+     private $sessionid;
+     
      $sessionid;
      
      //构造函数
@@ -81,4 +81,14 @@
          }
      }
      
+     /**
+      * 设置user的属性值。
+      */
+     function setFromArray($arr){         
+         foreach($jsonArray as $key=>$value){
+             $this->$key = $value;
+         }
+     }
+     
+         
 ?>

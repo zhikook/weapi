@@ -32,6 +32,12 @@
              $this->$key = $value;
          }
      }
+     
+     function setFromArray($array){
+         foreach($array as $key=>$value){
+             $this->$key = $value;
+         }
+     }
 
      //===========================================================
      
@@ -93,5 +99,11 @@
      }
      
      //=========================================================
+     
  }
+    class PageExtract{
+        $pageid;
+        $title;
+        $extract;   
+    }
 ?>

@@ -15,6 +15,8 @@ class PageImage{
     private $width;
     private $height;
     
+    private $thumbnail;
+    
     function __construct($title){
         this->$title;
     }
@@ -76,8 +78,26 @@ class PageImage{
         this->$imageRedirectUrl => $data;
     }
     
-    public function toHtml(){
+    //===========================================================
+    function setThumbNail($thumb){
+        $thumbnail=$thumb;
+    }
+    
+}
+
+class Thumbnail{
+    $thumbnail_source;
+    $thumbnail_width;
+    $thumbnail_height;
+    function __construct($source,$w,$h){
+        this->$thumbnail_source = $source;
+        this->$thumbnail_width = $w;
+        this->$thumbnail_height = $h;
+    }
         
+    public function getSource(){
+        return this->$thumbnail_source;
     }
 }
+    
 ?>
