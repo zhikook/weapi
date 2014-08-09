@@ -13,14 +13,17 @@ require_once __DIR__ . '/wiki_user.php';
  */
  class WikiApi{
      private $jsonParser ;
-     private $mapper ；
+     private $mapper ;
      
      public function __construct($user){
         $mapper = new JsonMapper();
      }
      
      /**
-      * User
+      * login();
+      * $user
+      * User Login;
+      * return true|false;
       **/  
      function login($user){
          $action = "login";
@@ -35,10 +38,17 @@ require_once __DIR__ . '/wiki_user.php';
          return $jsonResult; 
      }
      
+     /**
+      * unlogin()
+      * login out
+      * $user
+      * return true|false;
+      * 
+      */
      function unlogin($user){
          $action = "logout";
          $login_vars['lgname'] = $user.getUserName();  
-         $jsonResult= $jsonParser->execute($action,$login_vars)
+         $jsonResult= $jsonParser->execute($action,$login_vars);
          return $jsonResult;  
      }
      
@@ -54,13 +64,13 @@ require_once __DIR__ . '/wiki_user.php';
          $jsonResult = $jsonParser->execute($action,$login_vars);
          
          foreach($jsonResult as $key=>$value){
-             $jsonResult['result'] => $value;
-             $jsonResult['lguserid']  => $value;
-             $jsonResult['lgusername'] => $value;
-             $jsonResult['lgtoken']  =>$value;
+             $jsonResult['result'] = $value;
+             $jsonResult['lguserid']  = $value;
+             $jsonResult['lgusername'] = $value;
+             $jsonResult['lgtoken']  =$value;
              
-             $jsonResult['cookieprefix']  => $value;
-             $jsonResult['sessionid'] => $value;
+             $jsonResult['cookieprefix']  = $value;
+             $jsonResult['sessionid'] = $value;
          }
     
          $user->setFromArray($jsonResult);
@@ -106,7 +116,7 @@ require_once __DIR__ . '/wiki_user.php';
          
          $jsonData  = $jsonParser->execute($action,$limit);
 
-         foreach($result as key : value){
+         foreach($result as key=>value){
              $result['token']= $value;
              $result['userid']= $value;
              $result['username']= $value;
@@ -139,15 +149,15 @@ require_once __DIR__ . '/wiki_user.php';
          }
          
          if($jsonData){
-             if(is_array($jsonData){
-                $pages = $mapper->map($jsonData,,new ArrayObject(),'WikiPage');
-                return $pages;
+             if(is_array($jsonData)){
+                 return  $pages = $mapper->map($jsonData,new ArrayObject(),'WikiPage');
+               
              }else{
-                $page = $mapper->map($json, new WikiPage());
-                return $page;
+                 return $page = $mapper->map($json, new WikiPage());
+                
              }
          }else{
-             return false;
+         	return false;
          }
      }
      
@@ -155,7 +165,7 @@ require_once __DIR__ . '/wiki_user.php';
       * PageList
       **/
      function getPageList($limit){
-         $action = "query"
+         $action = "query";
          $pages;
                 
          $jsonData = $jsonParser->execute($action,$limit);
@@ -168,20 +178,20 @@ require_once __DIR__ . '/wiki_user.php';
     /**
      * getPagesExtracts()
      * $exchars:截取字数
-     * return: pages数组
+     * return: pages extracts数组
      */
                 
      function getPagesExtracts($exchars,$titles){
         $action = "query";
-        $prop = "extracts"
+        $prop = "extracts";
         $extracts;
         $jsonData = $jsonParser->execute($action,$exchars,$titles,$prop);    
         if($jsonData){
             $extracts=$mapper->mapArray($jsonData,new ArrayObject(),'WikiPage');
         }
         
-        return $pages;￼
-                
+        return $extracts;
+             
      }
         
     //=================================================================================

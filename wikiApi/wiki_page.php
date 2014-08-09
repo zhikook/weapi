@@ -8,16 +8,14 @@
  
  class WikiPage{
      
-     public $wikiApi;
-     
      private $pageId;
      private $pageNS;
      private $title;
-     private $pagelanguage
+     private $pagelanguage;
      private $touchedTime;
      private $readCount;
      
-     private $imageArr;     //图片数组
+     private $imageArr;    
      private $thumbUrl;
           
      public function __construct($id){
@@ -26,6 +24,12 @@
      
      //===========================================================
      
+     /**
+      * setFromJSON()
+      * $json : json索引对象
+      * 
+      * return :
+      */
      function setFromJSON($json){
          $jsonArray = json_decode($json, true);
          foreach($jsonArray as $key=>$value){
@@ -33,6 +37,10 @@
          }
      }
      
+     /**
+      * setFromArray()
+      * $array
+      */
      function setFromArray($array){
          foreach($array as $key=>$value){
              $this->$key = $value;
@@ -74,7 +82,7 @@
      }
      
      function getThumbUrl(){
-         return this->$thumbUrl
+         return this->$thumbUrl;
      }
      
      
@@ -94,16 +102,34 @@
          }
      }
      
-     function getThumbUrl(){
-         return this->$thumbUrl
+     function getPageImages($title){
+     	if(this->$imageArr){
+     		this->setImageArr();
+     	}
+     	
+        return this->$imageArr[$title];
      }
      
      //=========================================================
      
  }
-    class PageExtract{
-        $pageid;
-        $title;
-        $extract;   
+
+class PageExtract{
+	private $pageid;
+    private $title;
+    private $extract;  
+       
+    function __construct($id,$t) {
+        this->$pageId = $id;
+        this->$title = $t;
     }
+        
+    public function setExetract($txt){
+        this->$extract = $txt;
+    }
+        
+    public function getExetract(){
+        return this->$extract;
+    }        
+}
 ?>

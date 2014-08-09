@@ -8,38 +8,60 @@
  
  class WikiUser{
      
-     private  $userName;
+     private $userName;
      private $userId;
      private $userPassword;
      private $userToken;
      private $sessionid;
      
-     $sessionid;
+     private $sessionid;
      
-     //构造函数
+     //��������芥��
      function __construct($userName,$userToken){
          //
          return this;
      }
      
+     //===============================================================
+     
+     /**
+      * 璁剧疆user���灞���у�笺��
+      */
+     function setFromJSON($json){
+         $jsonArray = json_decode($json, true);
+         foreach($jsonArray as $key=>$value){
+             $this->$key = $value;
+         }
+     }
+     
+     /**
+      * 璁剧疆user���灞���у�笺��
+      */
+     function setFromArray($arr){         
+         foreach($jsonArray as $key=>$value){
+             $this->$key = $value;
+         }
+     }
+     
+     //===============================================================
      
      
      /**
-      * 登陆
+      * ��婚��
       **/
      public function login(){
          
      }
      
      /**
-      * 检查登陆
+      * 妫���ョ�婚��
       */
      public function checkToken(){
          
      }
      
      /**
-      * 创建用户
+      * ���寤虹�ㄦ��
       */
      private function createUser(){
          
@@ -60,35 +82,17 @@
      }
      
      function setUserName($data){
-         this->$userName => $data ;
+         this->$userName = $data ;
      }
      
      function setUserId($data){
-         this->$userId => $data ;
+         this->$userId = $data ;
      }
      
      function setUserToken($data){
-         this->$userToken => $data ;
+         this->$userToken  = $data ;
      }
      
-     /**
-      * 设置user的属性值。
-      */
-     function setFromJSON($json){
-         $jsonArray = json_decode($json, true);
-         foreach($jsonArray as $key=>$value){
-             $this->$key = $value;
-         }
-     }
      
-     /**
-      * 设置user的属性值。
-      */
-     function setFromArray($arr){         
-         foreach($jsonArray as $key=>$value){
-             $this->$key = $value;
-         }
-     }
-     
-         
+ }       
 ?>

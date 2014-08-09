@@ -28,6 +28,16 @@ class PageImage{
         }
     }
     
+     /**
+      * setFromArray()
+      * $array
+      */
+     function setFromArray($array){
+         foreach($array as $key=>$value){
+             $this->$key = $value;
+         }
+     }
+     
     //===========================================================
     
     function getPageId(){
@@ -57,27 +67,24 @@ class PageImage{
     //===========================================================
     
     function setPageId($data){
-        this->$pageid => $data;
+        this->$pageid = $data;
     }
     
     function setImageWidth($data){
-        this->$width => $data;
+        this->$width = $data;
     }
     
     function getImageHeight($data){
-        this->$height => $data;
+        this->$height = $data;
     }
     
     function getImageUrl($data){
-        this->$imageUrl => $data;
+        this->$imageUrl = $data;
     }
     
     function getImageRedirectUrl($data){
-        this->$imageRedirectUrl => $data;
+        this->$imageRedirectUrl = $data;
     }
-    
-    public function toHtml(){
-        
-    }
+
 }
 ?>

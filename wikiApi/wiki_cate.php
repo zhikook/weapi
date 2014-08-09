@@ -31,12 +31,12 @@ class Category{
     
     //===========================================================
     
-    function setCateId(){
-        this->$cateId => $data;
+    function setCateId($data){
+        this->$cateId = $data;
     }
     
-    function setCateName(){
-        this->$cateName => $data;
+    function setCateName($data){
+        this->$cateName = $data;
     }
     
     
